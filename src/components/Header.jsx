@@ -1,125 +1,85 @@
-import React, { useState, useEffect } from 'react';
-import PixelIcon from './PixelIcon';
-import MenuModal from './MenuModal';
+import React, { useState } from 'react';
 import { scrollToTarget, scrollToTop } from '../hooks/useLenis';
 import '../styles/header.css';
 
-export default function Header({ currentRoute = '/', onRouteChange }) {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLogoHovered, setIsLogoHovered] = useState(false);
+const NAV_ITEMS = [
+  { num: '01', label: 'Work', target: '#work' },
+  { num: '02', label: 'Approach', target: '#approach' },
+  { num: '03', label: 'Skills', target: '#stack' },
+  { num: '04', label: 'Contact', target: '#contact' },
+];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 30) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const navItems = [
-    { text: 'WORK', target: '#projects' },
-    { text: 'ABOUT', target: '#process' },
-    { text: 'SKILLS', target: '#service' },
-    { text: 'CONTACT', target: '#footer' },
-  ];
-
+export default function Header() {
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const handleNavClick = (e, target) => {
     e.preventDefault();
+    setIsMobileOpen(false);
     scrollToTarget(target);
+  };
+
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    setIsMobileOpen(false);
+    scrollToTop();
   };
 
   return (
     <>
-      <header className={`header ${isScrolled ? 'has-scrolled' : ''}`}>
-        <div className="header_inner">
-          {/* Logo / Profile Pill that collapses on scroll */}
-          <div className="header_title">
-            <div className="header_title-inner">
+      <header className="site-header" role="banner">
+        <div className="site-header-inner">
+          <a
+            href="#hero"
+            className="header-logo"
+            onClick={handleLogoClick}
+            aria-label="Shreyansh Bharti Home"
+          >
+            <span>SB</span>
+          </a>
+
+          <nav className="header-nav" aria-label="Main Navigation">
+            {NAV_ITEMS.map((item) => (
               <a
-                href="#top"
-                className="header_title-link"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToTop();
-                }}
-                onMouseEnter={() => setIsLogoHovered(true)}
-                onMouseLeave={() => setIsLogoHovered(false)}
-                aria-label="Back to top"
+                key={item.num}
+                href={item.target}
+                className="header-nav-link"
+                onClick={(e) => handleNavClick(e, item.target)}
               >
-                <div
-                  className="header_title-profile"
-                  title="Shreyansh Bharti"
-                >
-                  <PixelIcon name="avatar-pixel" style={{ width: '28px', height: '28px' }} />
-                </div>
-
-                <div className={`header_title-button ${isLogoHovered ? 'is-hovered' : ''}`}>
-                  <div className="header_title-logo">
-                    <span className="header_title-logo-text">Shreyansh</span>
-                    <PixelIcon name="cross" />
-                    <span className="header_title-logo-text">Bharti</span>
-                  </div>
-                </div>
+                <span className="header-nav-num">{item.num} /</span>
+                <span>{item.label}</span>
               </a>
-            </div>
-          </div>
-
-          {/* Desktop Navigation */}
-          <nav className="header_nav">
-            <ul className="header_nav-list">
-              {navItems.map((item) => (
-                <li key={item.text} className="header_nav-list-item">
-                  <a
-                    href={item.target}
-                    className="header_nav-button"
-                    onClick={(e) => handleNavClick(e, item.target)}
-                  >
-                    <span className="header_nav-button-inner">{item.text}</span>
-                    <span className="header_nav-button-bg"></span>
-                  </a>
-                </li>
-              ))}
-            </ul>
+            ))}
           </nav>
 
-          {/* Right Feed Button */}
-          <div className="header_tools">
-            <button
-              type="button"
-              className="header_nav-button header_feed-btn"
-              onClick={() => scrollToTarget('#projects')}
-            >
-              <span className="header_nav-button-inner">FEED</span>
-              <span className="header_nav-button-bg"></span>
-            </button>
-          </div>
-
-          {/* Mobile Menu Button */}
           <button
             type="button"
-            className="header_menu-button"
-            onClick={() => setIsMenuOpen(true)}
-            aria-label="Open Menu"
+            className="header-mobile-toggle"
+            onClick={() => setIsMobileOpen(!isMobileOpen)}
+            aria-expanded={isMobileOpen}
+            aria-label="Toggle navigation menu"
           >
-            Menu
+            {isMobileOpen ? '[CLOSE]' : '[MENU]'}
           </button>
         </div>
       </header>
 
-      <MenuModal
-        isOpen={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
-        currentRoute={currentRoute}
-        onRouteChange={onRouteChange}
-      />
+      {/* Responsive mobile drawer */}
+      <div className={`mobile-nav-overlay ${isMobileOpen ? 'is-open' : ''}`} aria-hidden={!isMobileOpen}>
+        <ul className="mobile-nav-list">
+          {NAV_ITEMS.map((item) => (
+            <li key={item.num}>
+              <a
+                href={item.target}
+                className="mobile-nav-link"
+                onClick={(e) => handleNavClick(e, item.target)}
+              >
+                <span className="mobile-nav-num">{item.num}</span>
+                <span>{item.label}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   );
 }
-

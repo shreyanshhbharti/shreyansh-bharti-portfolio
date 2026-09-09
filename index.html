@@ -2,19 +2,27 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23000' d='M9 5h2v2h2v2h2v2h-2v2h-2v2H9v-2H7v-2H5V9h2V7h2V5Z'/%3E%3C/svg%3E" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b0b0d'/%3E%3Ctext x='16' y='21' font-family='monospace' font-size='14' font-weight='bold' fill='%233d5afe' text-anchor='middle'%3ESB%3C/text%3E%3C/svg%3E" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#f9f4eb" />
-    <title>Shreyansh Bharti — Developer & CS Student | React, Web, AI/ML</title>
-    <meta name="description" content="Personal portfolio of Shreyansh Bharti, a B.Tech Computer Science (AI/ML) student exploring frontend engineering, interactive web systems, and AI." />
+    <meta name="theme-color" content="#0b0b0d" />
+    <title>Shreyansh Bharti — Computer Science (AI/ML) & Full-Stack Developer</title>
+    <meta name="description" content="Portfolio of Shreyansh Bharti — BTech Computer Science (AI/ML) student & full-stack software engineer building model pipelines, distributed backends, and tactile web interfaces." />
     
-    <!-- Google Fonts for Editorial Typography matching reference -->
+    <!-- Google Fonts: Bricolage Grotesque, Inter, Space Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   </head>
 
-  <body data-load="" data-click-animation="">
+  <body>
+    <!-- SVG Filter for hardware-accelerated organic grain -->
+    <svg class="noise-svg-filter" aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;">
+      <filter id="noiseFilter">
+        <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
+        <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.035 0"/>
+      </filter>
+    </svg>
+
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

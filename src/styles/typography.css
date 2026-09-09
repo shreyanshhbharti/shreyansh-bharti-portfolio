@@ -1,84 +1,58 @@
-/* Typography Utilities */
-.u-h1 {
-  font-family: var(--font-family-narrow);
-  font-size: var(--font-size-h1);
-  line-height: 0.8em;
-  letter-spacing: -0.05em;
-  text-transform: uppercase;
-  font-weight: var(--font-weight-semibold);
-}
-
-.u-h2 {
-  font-family: var(--font-family-normal);
-  font-size: var(--font-size-h2);
-  line-height: 1.1em;
-  letter-spacing: -0.04em;
-  font-weight: var(--font-weight-medium);
-  text-wrap: pretty;
-}
-
-.u-h3 {
-  font-family: var(--font-family-normal);
-  font-size: var(--font-size-h3);
-  line-height: 1.2em;
+/* Typography System */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 0.95;
   letter-spacing: -0.03em;
-  font-weight: var(--font-weight-medium);
-  text-wrap: pretty;
-}
-
-.u-p1 {
-  font-family: var(--font-family-normal);
-  font-size: var(--font-size-p1);
-  line-height: 1.35em;
-  letter-spacing: 0;
-}
-
-.u-c1 {
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-c1);
-  line-height: 1em;
+  color: var(--fg-primary);
   text-transform: uppercase;
-  font-weight: var(--font-weight-medium);
-  letter-spacing: -0.01em;
 }
 
-.u-f1 {
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-f1);
-  line-height: 1em;
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.text-hero {
+  font-size: clamp(3.5rem, 11vw, 10.5rem);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+}
+
+.text-section-title {
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.text-card-title {
+  font-size: clamp(1.75rem, 3.5vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+}
+
+.text-mono-label {
+  font-family: var(--font-mono);
+  font-size: clamp(0.75rem, 1vw, 0.875rem);
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  font-weight: var(--font-weight-medium);
-  letter-spacing: 0.02em;
+  color: var(--fg-muted);
 }
 
-.u-f2 {
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-f2);
-  line-height: 1em;
-  text-transform: uppercase;
-  font-weight: var(--font-weight-medium);
-  letter-spacing: -0.01em;
-}
-
-.u-container {
-  padding-left: max(var(--grid-margin), env(safe-area-inset-left));
-  padding-right: max(var(--grid-margin), env(safe-area-inset-right));
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  box-sizing: border-box;
-}
-
-.u-color-gray {
-  color: color-mix(in srgb, var(--color) 57%, transparent);
-}
-
-.u-screen-reader-text {
-  position: absolute !important;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-  width: 1px;
-  height: 1px;
-  border: 0;
+.text-body-lead {
+  font-family: var(--font-body);
+  font-size: clamp(1.125rem, 1.8vw, 1.625rem);
+  line-height: 1.4;
+  color: var(--fg-muted);
+  font-weight: 400;
 }

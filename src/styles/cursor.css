@@ -1,55 +1,31 @@
-/* Custom Cursor Styles */
 .custom-cursor {
   position: fixed;
   top: 0;
   left: 0;
-  pointer-events: none;
-  z-index: var(--z-index-cursor);
-  display: none;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.2s ease;
-  mix-blend-mode: difference;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .custom-cursor {
-    display: block;
-  }
-}
-
-.custom-cursor_dot {
   width: 10px;
   height: 10px;
   background-color: #ffffff;
   border-radius: 50%;
-  transition: width 0.25s var(--smooth-ease), height 0.25s var(--smooth-ease), transform 0.25s var(--smooth-ease), border-radius 0.25s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  pointer-events: none;
+  z-index: 9999;
   transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+  transition: width 0.25s var(--ease-out-expo), height 0.25s var(--ease-out-expo), opacity 0.2s ease, transform 0.05s linear;
+  will-change: transform, width, height;
 }
 
-.custom-cursor.is-pointer .custom-cursor_dot {
-  transform: translate(-50%, -50%) scale(2.4);
+.custom-cursor.is-hovering {
+  width: 54px;
+  height: 54px;
 }
 
-.custom-cursor.has-text .custom-cursor_dot {
-  width: auto;
-  height: auto;
-  min-width: 80px;
-  padding: 0.35rem 0.75rem;
-  border-radius: 1.5rem;
-  transform: translate(-50%, -50%) scale(1);
-  background-color: #ffffff;
+.custom-cursor.is-hidden {
+  opacity: 0;
 }
 
-.custom-cursor_label {
-  font-family: var(--font-family-mono);
-  font-size: 0.625rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: #000000;
-  text-transform: uppercase;
-  white-space: nowrap;
+/* Hide on touch devices and reduced motion */
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .custom-cursor {
+    display: none !important;
+  }
 }
-

@@ -1,7 +1,17 @@
 @import './styles/tokens.css';
 @import './styles/typography.css';
+@import './styles/cursor.css';
+@import './styles/preloader.css';
+@import './styles/header.css';
+@import './styles/hero.css';
+@import './styles/marquee.css';
+@import './styles/intro.css';
+@import './styles/projects.css';
+@import './styles/approach.css';
+@import './styles/skills.css';
+@import './styles/footer.css';
 
-/* Global Reset & Base Setup */
+/* Global Reset */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -12,150 +22,130 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  font-variant-numeric: lining-nums tabular-nums;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  background-color: var(--color-background);
-  color: var(--color);
-  font-family: var(--font-family-normal);
+  background-color: var(--bg-primary);
+  color: var(--fg-primary);
+  font-family: var(--font-body);
   scrollbar-width: thin;
-  min-height: 100%;
+  scrollbar-color: var(--fg-dim) var(--bg-primary);
 }
 
 body {
-  background-color: var(--color-background);
-  color: var(--color);
-  font-size: var(--font-size-p1);
-  line-height: 1.35em;
-  font-weight: var(--font-weight-medium);
-  min-height: 100%;
+  background-color: var(--bg-primary);
+  color: var(--fg-primary);
   overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  position: relative;
+  min-height: 100vh;
 }
 
 ::selection {
-  background-color: var(--selection-background);
-  color: var(--selection-foreground);
+  background-color: var(--accent);
+  color: #ffffff;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+  cursor: pointer;
 }
 
 button {
-  background-color: transparent;
+  background: none;
   border: none;
   font: inherit;
   color: inherit;
   cursor: pointer;
-  outline: none;
 }
 
-ul, ol {
-  list-style: none;
+/* Accessible focus visible styles */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
-img, svg {
-  display: block;
-  max-width: 100%;
-}
-
-/* Base Icon */
-.icon {
-  width: var(--icon-width);
-  height: var(--icon-height);
-  fill: currentColor;
-  flex-shrink: 0;
-  user-select: none;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.icon.is-small {
-  --icon-width: 1.125rem;
-  --icon-height: 1.125rem;
-}
-
-.icon.is-tiny {
-  --icon-width: 0.5rem;
-  --icon-height: 0.5rem;
-}
-
-/* Generic Button Default (Pill Shape with spring hover) */
-.button-default {
-  color: var(--color);
-  z-index: var(--z-index-above);
-  user-select: none;
-  justify-content: center;
-  align-items: center;
-  display: inline-flex;
-  position: relative;
-  border-radius: var(--border-radius-3);
-  transition: transform var(--speed-fast) var(--bouncy-ease);
-}
-
-.button-default_button-container {
-  padding: var(--size-12) var(--size-16);
-  column-gap: var(--size-4);
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  position: relative;
-  z-index: 2;
-}
-
-.button-default_button-bg {
-  border-radius: var(--border-radius-3);
-  background-color: var(--color-background-beige);
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  transition: border-radius 0.4s var(--smooth-ease), background-color 0.2s ease;
-}
-
-.button-default.is-yellow .button-default_button-bg {
-  border: 1px solid var(--color);
-  background-color: var(--color-accent);
-  border-radius: 1.5rem;
-}
-
-.button-default.is-yellow:active {
-  transform: scale(0.96, 0.95);
-}
-
-/* Jumping word micro-interaction */
-@keyframes words-jumping {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-0.25rem); }
-  90% { transform: translateY(0.0625rem); }
-  100% { transform: translateY(0); }
-}
-
-@keyframes icon-jumping {
-  0% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-0.35rem); }
-  90% { transform: translateY(0.0625rem); }
-  100% { transform: translateY(0) rotate(180deg); }
-}
-
-.is-hovered .button-default_button-text,
-.is-hovered .header_title-logo-text {
-  animation: words-jumping 0.425s cubic-bezier(0.2, 0.5, 0.5, 1) forwards;
-}
-
-.is-hovered .button-default_button-container .icon,
-.is-hovered .header_title-button .icon {
-  animation: icon-jumping 0.425s cubic-bezier(0.2, 0.5, 0.5, 1) forwards;
-}
-
-/* Subtle background noise overlay */
-.overlay_background {
+/* Full page noise / grain overlay */
+.noise-overlay {
   position: fixed;
   inset: 0;
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
-  z-index: var(--z-index-overlay);
+  z-index: 999;
   opacity: 0.035;
-  background-image: radial-gradient(#000 1px, transparent 0);
-  background-size: 4px 4px;
+  filter: url(#noiseFilter);
+  mix-blend-mode: overlay;
+}
+
+/* Section styling helpers */
+.section-container {
+  width: 100%;
+  max-width: var(--max-content-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--site-padding-x);
+  padding-right: var(--site-padding-x);
+}
+
+.hairline-border-top {
+  border-top: 1px solid var(--border-hairline);
+}
+
+.hairline-border-bottom {
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.hairline-border-all {
+  border: 1px solid var(--border-hairline);
+}
+
+/* Monospace chip */
+.tech-chip {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--border-hairline);
+  background-color: rgba(255, 255, 255, 0.02);
+  color: var(--fg-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.tech-chip:hover {
+  border-color: var(--accent);
+  color: var(--fg-primary);
+}
+
+/* Underline draw animation utility */
+.hover-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s var(--ease-out-expo);
+}
+
+.hover-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Lock scroll while preloader is active */
+body.is-loading {
+  overflow: hidden !important;
+  height: 100vh !important;
 }

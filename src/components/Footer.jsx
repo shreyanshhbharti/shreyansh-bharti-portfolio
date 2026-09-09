@@ -1,105 +1,121 @@
-import React from 'react';
-import PixelIcon from './PixelIcon';
-import { scrollToTarget, scrollToTop } from '../hooks/useLenis';
+import React, { useState, useEffect } from 'react';
+import { scrollToTop } from '../hooks/useLenis';
 import '../styles/footer.css';
 
-export default function Footer() {
-  const handleProcessClick = (e) => {
-    e.preventDefault();
-    scrollToTarget('#process');
-  };
+const EMAIL = 'shreyanshbharti252@gmail.com';
 
-  const handleTopClick = (e) => {
-    e.preventDefault();
-    scrollToTop();
+const SOCIALS = [
+  { label: 'GitHub', href: 'https://github.com/shreyanshhbharti' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/shreyansh-bharti-2a34a8425/' },
+];
+
+export default function Footer() {
+  const [copied, setCopied] = useState(false);
+  const [currentTime, setCurrentTime] = useState('');
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const options = {
+        timeZone: 'Asia/Kolkata',
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      };
+      setCurrentTime(new Intl.DateTimeFormat('en-GB', options).format(now));
+    };
+
+    updateTime();
+    const timer = setInterval(updateTime, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(EMAIL);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <footer id="footer" className="footer-section">
-      <div className="footer_container u-container">
-        {/* Top CTA & Link Columns Row */}
-        <div className="footer_top">
-          {/* Left CTA Area */}
-          <div className="footer_cta-block">
-            <div className="footer_cta-question">
-              <span>WANT TO KNOW HOW IT WORKS?</span>
-            </div>
+    <footer id="contact" className="contact-footer-section section-container" role="contentinfo" aria-label="Contact and Social Links">
+      <div className="contact-meta-header">
+        <span>// Get In Touch</span>
+        <span>04 / CONTACT</span>
+      </div>
+
+      <div className="contact-main-group">
+        <h2 className="contact-headline">
+          Let&apos;s build<br />something.
+        </h2>
+
+        <div className="contact-email-wrapper">
+          <a
+            href={`mailto:${EMAIL}`}
+            className="contact-email-link"
+            data-cursor="pointer"
+            aria-label={`Send email to ${EMAIL}`}
+          >
+            <span>{EMAIL}</span>
+            <span className="contact-email-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <button
+            type="button"
+            className="copy-email-btn"
+            onClick={handleCopy}
+            data-cursor="pointer"
+            aria-label="Copy email address to clipboard"
+          >
+            {copied ? '✓ COPIED TO CLIPBOARD' : 'CLICK TO COPY ADDRESS'}
+          </button>
+        </div>
+      </div>
+
+      <div className="contact-status-details">
+        <div className="contact-detail-block">
+          <span className="contact-detail-label">Location & Timezone</span>
+          <span className="contact-detail-val">India · {currentTime || '16:45:00'} IST (UTC+5:30)</span>
+        </div>
+        <div className="contact-detail-block">
+          <span className="contact-detail-label">Background & Focus</span>
+          <span className="contact-detail-val">BTech CS (AI/ML) · Full-Stack Systems</span>
+        </div>
+        <div className="contact-detail-block">
+          <span className="contact-detail-label">Availability</span>
+          <span className="contact-detail-val">Open for Software & ML Engineering</span>
+        </div>
+      </div>
+
+      <div className="footer-bottom-row">
+        <span>© {new Date().getFullYear()} Shreyansh Bharti · All Rights Reserved</span>
+
+        <div className="footer-social-links">
+          {SOCIALS.map((soc) => (
             <a
-              href="#process"
-              className="footer_cta-btn"
-              onClick={handleProcessClick}
-              data-cursor="PROCESS"
+              key={soc.label}
+              href={soc.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-social-link"
+              data-cursor="pointer"
             >
-              <PixelIcon name="arrow-enter" style={{ width: '12px', height: '12px' }} />
-              <span>PROCESS</span>
+              <span>{soc.label}</span>
+              <span style={{ marginLeft: '4px', fontSize: '0.8em' }} aria-hidden="true">↗</span>
             </a>
-          </div>
-
-          {/* Navigation Columns */}
-          <div className="footer_nav-cols">
-            {/* Col 1: Pages */}
-            <div className="footer_nav-col">
-              <span className="footer_nav-heading">NAVIGATION</span>
-              <ul className="footer_nav-list">
-                <li><a href="#projects" onClick={(e) => { e.preventDefault(); scrollToTarget('#projects'); }}>WORK</a></li>
-                <li><a href="#process" onClick={(e) => { e.preventDefault(); scrollToTarget('#process'); }}>ABOUT</a></li>
-                <li><a href="#service" onClick={(e) => { e.preventDefault(); scrollToTarget('#service'); }}>SKILLS</a></li>
-                <li><a href="#footer" onClick={(e) => { e.preventDefault(); scrollToTarget('#footer'); }}>CONTACT</a></li>
-              </ul>
-            </div>
-
-
-            {/* Col 2: Socials */}
-            <div className="footer_nav-col">
-              <span className="footer_nav-heading">SOCIAL</span>
-              <ul className="footer_nav-list">
-                <li><a href="https://github.com" target="_blank" rel="noopener noreferrer">GITHUB ↗</a></li>
-                <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LINKEDIN ↗</a></li>
-                <li><a href="https://x.com" target="_blank" rel="noopener noreferrer">X.COM ↗</a></li>
-                <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">INSTAGRAM ↗</a></li>
-              </ul>
-            </div>
-
-            {/* Col 3: Legal */}
-            <div className="footer_nav-col">
-              <span className="footer_nav-heading">LEGAL</span>
-              <ul className="footer_nav-list">
-                <li><a href="#impressum" onClick={(e) => e.preventDefault()}>IMPRESSUM</a></li>
-                <li><a href="#privacy" onClick={(e) => e.preventDefault()}>PRIVACY</a></li>
-                <li><a href="#terms" onClick={(e) => e.preventDefault()}>TERMS</a></li>
-              </ul>
-            </div>
-          </div>
+          ))}
         </div>
 
-        {/* Bottom Metadata Row matching reference screenshot 21 */}
-        <div className="footer_bottom">
-          <div className="footer_bottom-left">
-            <span>©2026 SHREYANSH BHARTI</span>
-            <PixelIcon name="cross" />
-          </div>
-
-          <div className="footer_bottom-center">
-            <span>B.TECH CSE • AI/ML</span>
-            <div className="footer_bottom-crosses" aria-hidden="true">
-              <PixelIcon name="cross" />
-              <PixelIcon name="cross" />
-              <PixelIcon name="cross" />
-            </div>
-          </div>
-
-          <div className="footer_bottom-right">
-            <button
-              type="button"
-              className="footer_back-to-top"
-              onClick={handleTopClick}
-              data-cursor="TOP"
-            >
-              <span>BACK TO TOP ↑ ↑ ↑</span>
-            </button>
-            <PixelIcon name="cross" />
-          </div>
-        </div>
+        <button
+          type="button"
+          className="back-to-top-btn"
+          onClick={scrollToTop}
+          data-cursor="pointer"
+          aria-label="Scroll back to top"
+        >
+          <span>BACK TO TOP</span>
+          <span aria-hidden="true">↑</span>
+        </button>
       </div>
     </footer>
   );

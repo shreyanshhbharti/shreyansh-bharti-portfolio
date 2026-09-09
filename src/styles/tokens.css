@@ -1,110 +1,38 @@
 :root {
-  /* Colors */
-  --ci-cream: #f9f4eb;
-  --ci-beige: #f0ece5;
-  --ci-black: #000000;
-  --ci-black-60: rgba(0, 0, 0, 0.6);
-  --ci-white: #ffffff;
-  --ci-yellow: #ffe32e;
-  --ci-pink: #ffd2f3;
-  --ci-peach: #fcdca6;
-  --ci-violet: #e5daf6;
-  --ci-lemon: #fef280;
+  /* Color Palette */
+  --bg-primary: #0b0b0d;
+  --bg-secondary: #131317;
+  --bg-card: #131317;
+  --fg-primary: #f3f1ea;
+  --fg-muted: #8f8d97;
+  --fg-dim: #5c5a65;
+  --accent: #3d5afe;
+  --accent-glow: rgba(61, 90, 254, 0.25);
+  --accent-glow-subtle: rgba(61, 90, 254, 0.08);
+  --border-hairline: rgba(243, 241, 234, 0.12);
+  --border-hairline-bright: rgba(243, 241, 234, 0.24);
 
-  /* Theme Defaults */
-  --color-background: var(--ci-cream);
-  --color-background-beige: var(--ci-beige);
-  --color: var(--ci-black);
-  --color-accent: var(--ci-yellow);
-  --color-accent-pink: var(--ci-pink);
-  --color-accent-peach: var(--ci-peach);
-  --color-accent-violet: var(--ci-violet);
-  --color-accent-lemon: var(--ci-lemon);
-  --selection-foreground: var(--color-accent);
-  --selection-background: var(--ci-black);
+  /* Typography */
+  --font-display: 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Space Mono', monospace;
 
-  /* Typography Fonts */
-  --font-family-narrow: 'Barlow Condensed', 'Anton', 'Impact', -apple-system, sans-serif;
-  --font-family-normal: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-family-mono: 'Space Mono', 'Menlo', 'Consolas', monospace;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 700;
+  /* Layout & Spacing */
+  --site-padding-x: clamp(1.25rem, 5vw, 4.5rem);
+  --header-height: 5rem;
+  --max-content-width: 1440px;
 
-
-  /* Font Sizing */
-  --font-size-h1: clamp(4.5rem, -0.0556rem + 11.5556vw, 11.5rem);
-  --font-size-h2: clamp(2rem, 1.0278rem + 2.2222vw, 3.25rem);
-  --font-size-h3: clamp(1.25rem, 1.0833rem + 0.6667vw, 1.75rem);
-  --font-size-p1: clamp(1rem, 0.9028rem + 0.2222vw, 1.125rem);
-  --font-size-c1: 0.875rem;
-  --font-size-f1: 0.5rem;
-  --font-size-f2: 0.75rem;
-
-  /* Spacing Scale */
-  --size-2: 0.125rem;
-  --size-4: 0.25rem;
-  --size-8: 0.5rem;
-  --size-12: 0.75rem;
-  --size-16: 1rem;
-  --size-24: 1.5rem;
-  --size-32: 2rem;
-  --size-48: clamp(2rem, 1.2222rem + 1.7778vw, 3rem);
-  --size-64: clamp(2.5rem, 1.3333rem + 2.6667vw, 4rem);
-  --size-80: clamp(3rem, 1.4444rem + 3.5556vw, 5rem);
-  --size-96: clamp(4rem, 2.4444rem + 3.5556vw, 6rem);
-  --size-120: clamp(5rem, 3.0556rem + 4.4444vw, 7.5rem);
-  --size-144: clamp(6rem, 3.6667rem + 5.3333vw, 9rem);
-
-  /* Layout */
-  --grid-margin: clamp(1.25rem, 0.3333rem + 2.6667vw, 3rem);
-  --grid-gutter: var(--size-8);
-  --grid-columns: 8;
-  --grid: repeat(var(--grid-columns), minmax(0, 1fr));
-  --header-height: 3.875rem;
-  --border-radius-3: 0.1875rem;
-  --icon-width: 1.25rem;
-  --icon-height: 1.25rem;
-
-  /* Timings & Easings */
-  --speed-faster: 0.15s;
-  --speed-fast: 0.3s;
-  --speed: 0.45s;
-  --speed-slow: 0.65s;
-  --speed-slower: 0.8s;
-  --smooth-ease: cubic-bezier(0.32, 0.72, 0, 1);
-  --elastic-ease-out: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --bouncy-ease: cubic-bezier(0.34, 1.64, 0.64, 1);
-  --opacity-ease: cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* Z-Index Structure */
-  --z-index-below: -1;
-  --z-index-default: 0;
-  --z-index-above: 1;
-  --z-index-higher: 2;
-  --z-index-overlay: 700;
-  --z-index-header: 800;
-  --z-index-cursor: 850;
-  --z-index-menu: 900;
-  --z-index-click: 1050;
-  --z-index-preloader: 1100;
+  /* Easing */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-power4: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-@media screen and (min-width: 992px) {
-  :root {
-    --grid-columns: 12;
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
-}
-
-.u-theme-dark {
-  --color: var(--ci-cream);
-  --color-background: var(--ci-black);
-  --selection-foreground: var(--ci-black);
-  --selection-background: var(--ci-yellow);
-}
-
-.u-theme-light {
-  --color: var(--ci-black);
-  --color-background: var(--ci-cream);
-  --selection-foreground: var(--ci-yellow);
-  --selection-background: var(--ci-black);
 }

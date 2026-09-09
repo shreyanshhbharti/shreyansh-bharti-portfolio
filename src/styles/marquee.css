@@ -1,0 +1,66 @@
+.glitch-marquee-section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 1.25rem 0;
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-hairline);
+  border-bottom: 1px solid var(--border-hairline);
+  user-select: none;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marqueeScroll 22s linear infinite;
+}
+
+.marquee-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-right: 2rem;
+}
+
+.marquee-item {
+  font-family: var(--font-mono);
+  font-size: clamp(0.8125rem, 1.2vw, 0.9375rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--fg-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.marquee-prefix {
+  color: var(--accent);
+}
+
+.marquee-glitch {
+  display: inline-block;
+  transition: color 0.15s ease, text-shadow 0.15s ease;
+}
+
+.marquee-glitch.is-glitching {
+  color: #ffffff;
+  text-shadow: 2px 0 var(--accent), -2px 0 rgba(255, 255, 255, 0.8);
+  transform: skewX(-4deg);
+}
+
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none !important;
+  }
+}
