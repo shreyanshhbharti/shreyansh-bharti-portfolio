@@ -20,15 +20,4 @@ My personal portfolio website showcasing my **projects, skills, experience, and 
 - CSS
 - Vercel
 
-## 🚀 Getting Started
-
-```bash
-git clone <your-repository-url>
-cd <project-folder>
-npm install
-npm run dev
-```
-
----
-
 **Designed & built by Shreyansh Bharti**
